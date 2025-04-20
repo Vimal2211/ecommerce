@@ -1,0 +1,107 @@
+<!-- <div class="container mt-5">
+    <div class="card order-card animate__animated animate__fadeIn">
+      <div class="card-header bg-dark text-white text-center">
+        <h3>My Orders</h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="orders.length > 0; else emptyOrders">
+          <div class="row mb-3 order-item animate__animated animate__fadeInUp" *ngFor="let order of orders; let i = index">
+            <div class="col-md-2 col-4 text-center">
+              <img [src]="order.image" alt="Product Image" class="img-fluid order-img">
+            </div>
+            <div class="col-md-6 col-8">
+              <h5>{{ order.name }}</h5>
+              <p class="text-muted">Order ID: {{ order.id }}</p>
+              <p class="text-success fw-bold">₹{{ order.price }}</p>
+            </div>
+            <div class="col-md-4 col-12 d-flex justify-content-md-end align-items-center mt-md-0 mt-2">
+              <span class="badge me-2" [ngClass]="getStatusClass(order.status)">{{ order.status }}</span>
+              <button class="btn btn-sm btn-danger"
+                      [disabled]="order.status === 'Delivered' || order.status === 'Cancelled'"
+                      (click)="cancelOrder(i)">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+  
+        If No Orders
+        <ng-template #emptyOrders>
+          <div class="text-center animate__animated animate__zoomIn">
+            <img src="assets/images/no-orders.png" class="empty-img" alt="No Orders">
+            <h5 class="mt-3 text-muted">No Orders Found</h5>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+   -->
+
+   <div class="container mt-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+    <!-- <button (click)="goToHome()" data-bs-toggle="tooltip" title="Back to Home" class="back-btn">
+        <i class="bi bi-arrow-left-circle"></i>
+    </button> -->
+    <div class="text-start mb-3">
+        <button class="btn btn-dark" (click)="goToHome()">
+          <i class="bi bi-arrow-left"></i> Back to Home
+        </button>
+      </div>
+    <div class="card order-card">
+      <div class="card-header bg-dark text-white text-center">
+        <h3>My Orders</h3>
+      </div>
+      <div class="card-body">
+        <div *ngIf="orders.length > 0; else noOrders">
+          <div class="order-item" *ngFor="let order of orders; let i = index" (click)="toggleDetails(i)">
+            <div class="row align-items-center">
+              <div class="col-md-2 col-4 text-center">
+                <img [src]="order.image" alt="Product Image" class="img-fluid order-img">
+              </div>
+              <div class="col-md-6 col-8">
+                <h5>{{ order.name }}</h5>
+                <p class="text-muted"><i class="bi bi-receipt"></i> Order ID: {{ order.id }}</p>
+                <p class="text-success fw-bold"><i class="bi bi-currency-rupee"></i> {{ order.price }}</p>
+              </div>
+              <div class="col-md-4 col-12 d-flex justify-content-md-end align-items-center mt-md-0 mt-2">
+                <span class="badge me-2" [ngClass]="getStatusClass(order.status)">{{ order.status }}</span>
+                <!-- <button class="btn btn-sm btn-danger"
+                        [disabled]="order.status === 'Delivered' || order.status === 'Cancelled'"
+                        (click)="cancelOrder(i); $event.stopPropagation()">
+                  Cancel
+                </button> -->
+              </div>
+            </div>
+  
+            <!-- Order Details (Fixed Data Binding Issue) -->
+            <div *ngIf="order.showDetails" class="order-details">
+              <p><i class="bi bi-geo-alt"></i> <strong>Shipping Address:</strong> {{ order.address }}</p>
+              <p><i class="bi bi-calendar-day"></i> <strong>Order Date:</strong> {{ order.date }}</p>
+              <!-- Display Different Details Based on Status -->
+            <ng-container *ngIf="order.status === 'Delivered'; else notDelivered">
+                <p><i class="bi bi-box-seam"></i> <strong>Delivered On:</strong> {{ order.deliveryDate }}</p>
+                <p class="text-success"><i class="bi bi-check-circle"></i> Your order has been successfully delivered!</p>
+            </ng-container>
+
+            <ng-template #notDelivered>
+                <p><i class="bi bi-truck"></i> <strong>Estimated Delivery:</strong> {{ order.deliveryDate }}</p>
+                <p><i class="bi bi-info-circle"></i> <strong>Description:</strong> {{ order.description }}</p>
+            </ng-template>
+              <!-- <p><i class="bi bi-truck"></i> <strong>Estimated Delivery:</strong> {{ order.deliveryDate }}</p>
+              <p><i class="bi bi-info-circle"></i> <strong>Description:</strong> {{ order.description }}</p> -->
+            </div>
+          </div>
+        </div>
+  
+        <!-- No Orders Found -->
+        <ng-template #noOrders>
+          <div class="text-center">
+            <img src="assets/images/noorder.jpg" class="empty-img" alt="No Orders">
+            <h5 class="mt-3 text-muted">No Orders Found</h5>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  
+  
+  

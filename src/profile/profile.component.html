@@ -1,0 +1,72 @@
+<div class="profile-container">
+    <button (click)="goToHome()" data-bs-toggle="tooltip" title="Back to Home" class="back-btn">
+        <i class="bi bi-arrow-left-circle"></i>
+    </button>
+    <div class="profile-card">
+        <!-- Profile View Mode -->
+        <div *ngIf="!isEditing">
+            <div class="profile-image">
+                <img [src]="user.profileImage" alt="Profile Picture">
+            </div>
+            <h2 class="profile-name">{{ this.tmpValue[0].fullName }}</h2>
+            <p class="profile-email"><i class="fas fa-envelope"></i> {{ this.tmpValue[0].email }}</p>
+            <p class="profile-phone"><i class="fas fa-phone"></i> {{ this.tmpValue[0].phoneNumber }}</p>
+            <p class="profile-bio">{{ user.bio }}</p>
+            <button class="edit-btn" (click)="editProfile()">Edit Profile</button>
+        </div>
+
+        <!-- Profile Edit Mode -->
+        <form *ngIf="isEditing" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+
+            <!-- Profile Picture Upload -->
+            <!-- <div class="form-group">
+                <label>Profile Picture</label>
+                <input type="file" id="fileInput" (change)="onFileSelected($event)">
+                <div class="image-preview" *ngIf="selectedImage">
+                    <img [src]="selectedImage" alt="Profile Preview">
+                </div>
+            </div> -->
+            <div class="file-upload-container">
+                <label class="file-label label">Profile Picture</label>
+                <div class="custom-file-upload">
+                  <label for="fileInput" class="custom-file-button">Choose File</label>
+                  <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+                  <span class="file-name">{{ fileName || 'No file chosen' }}</span>
+                </div>
+              
+                <div class="image-preview" *ngIf="selectedImage">
+                    <img [src]="selectedImage" alt="Profile Preview">
+                </div>
+              </div>
+              
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" formControlName="email">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" formControlName="phone">
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <textarea rows="3" formControlName="address"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea formControlName="bio"></textarea>
+            </div>
+
+            <div class="btn-group changebtn">
+                <button type="submit" class="save-btn">Save Changes</button>
+                <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+            </div>
+
+        </form>
+
+    </div>
+</div>

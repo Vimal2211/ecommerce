@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+
+<div>
+  <div>
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+          aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../assets/homepage_1_copy_2.webp" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="../assets/HOMPAGE.webp" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="../assets/Home_Page_2_RsHMd1M.webp" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="../assets/Home_Page4.webp" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+  <div class="product">
+    Pick up Your Products
+  </div>
+
+  <div>
+    <!-- @for(ite of products; track ite; let i = $index){
+        <div class="col-3">
+            <div class="card" (click)="gotopage(ite)">
+                <div class="card__img">
+                    <img [src]=ite.imageUrl style="width: 200px;" alt="">
+                </div>
+                <div class="card__subtitle">{{ite.name}}</div>
+                <div class="card__wrapper">
+                    <div class="card__title">{{ite.price}}</div>
+                    <div class="card__icon">
+                        <svg color="rgb(224, 223, 220)"
+                            style="user-select: none; width: 100%; height: 100%; display: inline-block; fill: rgb(224, 223, 220); flex-shrink: 0; cursor: auto;"
+                            viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <g color="rgb(224, 223, 220)">
+                                <circle opacity="0.2" r="96" cy="128" cx="128"></circle>
+                                <circle stroke-width="16" stroke-miterlimit="10" stroke="rgb(224, 223, 220)" fill="none"
+                                    r="96" cy="128" cx="128"></circle>
+                                <polyline stroke-width="16" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="rgb(224, 223, 220)" fill="none" points="134.1 161.9 168 128 134.1 94.1">
+                                </polyline>
+                                <line stroke-width="16" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="rgb(224, 223, 220)" fill="none" y2="128" x2="168" y1="128" x1="88"></line>
+                            </g>
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        } -->
+    <app-product-list-home [products]="products"></app-product-list-home>
+    <!-- Using Input Output Decorators -->
+  </div>
+
+</div>

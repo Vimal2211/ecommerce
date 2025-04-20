@@ -1,0 +1,72 @@
+<!-- <div class="row">
+
+    @for(ite of products; track ite; let i = $index){
+    <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="card" (click)="gotopage(ite)">
+            <div class="card__img">
+                <img [src]=ite.imageUrl style="width: 200px;" alt="">
+            </div>
+            <div class="card__subtitle">{{ite.name}}</div>
+            <div class="card__wrapper">
+                <div class="card__title">₹ {{ite.price}}</div>
+                <div class="card__icon">
+                    <svg color="rgb(224, 223, 220)"
+                        style="user-select: none; width: 100%; height: 100%; display: inline-block; fill: rgb(224, 223, 220); flex-shrink: 0; cursor: auto;"
+                        viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <g color="rgb(224, 223, 220)">
+                            <circle opacity="0.2" r="96" cy="128" cx="128"></circle>
+                            <circle stroke-width="16" stroke-miterlimit="10" stroke="rgb(224, 223, 220)" fill="none"
+                                r="96" cy="128" cx="128"></circle>
+                            <polyline stroke-width="16" stroke-linejoin="round" stroke-linecap="round"
+                                stroke="rgb(224, 223, 220)" fill="none" points="134.1 161.9 168 128 134.1 94.1">
+                            </polyline>
+                            <line stroke-width="16" stroke-linejoin="round" stroke-linecap="round"
+                                stroke="rgb(224, 223, 220)" fill="none" y2="128" x2="168" y1="128" x1="88"></line>
+                        </g>
+                    </svg>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    }
+
+</div> -->
+
+<div class="row">
+    <div *ngFor="let ite of products; let i = index" class="col-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="card" >
+            <div class="card__img">
+                <img [src]="ite.imageUrl" style="width: 200px;" alt="">
+            </div>
+            <div class="card__subtitle">{{ ite.name }}</div>
+            <div class="card__wrapper">
+                <div class="card__title">₹ {{ ite.price }}</div>
+
+                <svg (click)="toggleWishlist(ite)" 
+                         [ngClass]="{'highlighted': ite.isWishlist}" 
+                         xmlns="http://www.w3.org/2000/svg" 
+                         viewBox="0 0 24 24" 
+                         width="24" height="24">
+                        <path [attr.fill]="ite.isWishlist ? 'red' : 'none'" 
+                              stroke="currentColor" 
+                              stroke-width="2" 
+                              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    
+                <div class="card__icon" (click)="gotopage(ite)">
+                    <svg color="rgb(224, 223, 220)" 
+                        style="user-select: none; width: 100%; height: 100%; display: inline-block; fill: rgb(224, 223, 220); flex-shrink: 0; cursor: auto;" 
+                        viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                        <g color="rgb(224, 223, 220)">
+                            <circle opacity="0.2" r="96" cy="128" cx="128"></circle>
+                            <circle stroke-width="16" stroke-miterlimit="10" stroke="rgb(224, 223, 220)" fill="none" r="96" cy="128" cx="128"></circle>
+                            <polyline stroke-width="16" stroke-linejoin="round" stroke-linecap="round" stroke="rgb(224, 223, 220)" fill="none" points="134.1 161.9 168 128 134.1 94.1"></polyline>
+                            <line stroke-width="16" stroke-linejoin="round" stroke-linecap="round" stroke="rgb(224, 223, 220)" fill="none" y2="128" x2="168" y1="128" x1="88"></line>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

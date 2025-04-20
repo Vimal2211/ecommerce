@@ -1,0 +1,102 @@
+<app-navbar></app-navbar>
+<div style="background-color: #f3d8d0; height: 100vh; overflow-y: hidden;">
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div><h2>Selected Product</h2></div>
+    <div><button style="padding: 5px; border-radius: 10px;" (click)="backTo()">Back</button></div>
+</div>
+    
+    <div class="flex">
+        <div class="row border" *ngFor="let item of selectedValue; let i = index">
+            <div class="col-6 img" style="text-align: center;">
+                <img [src]=item.imageUrl alt="">
+            </div>
+
+            <div class="col-6 detail">
+                <div>
+                    <h2>{{item.name}}</h2>
+                    <p> {{item.description}}</p>
+                </div>
+
+                <div id="price">
+                    Total Price: <span class="price">{{item.price * selectedQuantity | currency: 'INR'}}</span>
+                </div>
+
+                <div id="price">
+                    Total Stock: <span class="price">50</span>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    Quantity : <span class="price">{{selectedQuantity}}</span>
+                    <div>
+                        <span style="margin-right: 10px;">
+                            <button [ngClass]="{'disabled':disableDecrement }" (click)="decrementQuantity(i)"
+                                id="decrease" class="btn">-</button>
+                        </span>
+                        <span>
+                            <button [ngClass]="{'disabled':disableIncrement }" (click)="incrementQuantity(i)"
+                                class="btn">+</button>
+                        </span>
+                    </div>
+
+                </div>
+
+                <div *ngIf="selectedQuantity !=0" style="margin-top: 10px;">
+                    <!-- <button [ngClass]="{'disabled':disablAddToCard }" [disabled]=disablAddToCard (click)="addtoCart()" class=""> Add to Car</button> -->
+
+
+                    <button (click)="addtoCart()" type="button" class="button">
+                        <span class="fold"></span>
+
+                        <div class="points_wrapper">
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                            <i class="point"></i>
+                        </div>
+
+                        <span class="inner">
+                            <!-- <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2.5">
+                            <polyline
+                                points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                            </polyline>
+                        </svg> -->
+                            <svg class="cart" fill="white" viewBox="0 0 576 512" height="1em"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z">
+                                </path>
+
+                                <polyline
+                                    points="13.18 1.37 13.18 9.64 21.45 9.64 10.82 22.63 10.82 14.36 2.55 14.36 13.18 1.37">
+                                </polyline>
+                            </svg>
+
+                            Add to Cart</span>
+                    </button>
+
+                </div>
+
+                <div *ngIf="selectedQuantity ==0">
+                    <span>Please select the Quantity</span>
+                </div>
+
+                <!-- <div *ngIf=" disablAddToCard">
+                    <span>Maximum amount reached</span>
+                </div> -->
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

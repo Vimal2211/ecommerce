@@ -1,0 +1,135 @@
+.prod{
+    border: 1px solid rosybrown;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    background-color: rgb(245, 245, 245);
+}
+
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 0.7em 1.4em 0.7em 1.1em;
+    color: white;
+    background: #ad5389;
+    background: linear-gradient(
+      0deg,
+      rgba(20, 167, 62, 1) 0%,
+      rgba(102, 247, 113, 1) 100%
+    );
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    letter-spacing: 0.05em;
+    border-radius: 20em;
+  }
+  
+  .cssbuttons-io-button svg {
+    margin-right: 6px;
+  }
+  
+  .cssbuttons-io-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+  }
+  
+  .cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+  }
+  
+  .btn {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #171717;
+    // padding: 1em 2em;
+    border: none;
+    border-radius: .6rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .btn span:not(:nth-child(6)) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 30px;
+    width: 30px;
+    background-color: #0c66ed;
+    border-radius: 50%;
+    transition: .6s ease;
+  }
+  
+  .btn span:nth-child(6) {
+    position: relative;
+  }
+  
+  .btn span:nth-child(1) {
+    transform: translate(-3.3em, -4em);
+  }
+  
+  .btn span:nth-child(2) {
+    transform: translate(-6em, 1.3em);
+  }
+  
+  .btn span:nth-child(3) {
+    transform: translate(-.2em, 1.8em);
+  }
+  
+  .btn span:nth-child(4) {
+    transform: translate(3.5em, 1.4em);
+  }
+  
+  .btn span:nth-child(5) {
+    transform: translate(3.5em, -3.8em);
+  }
+  
+  .btn:hover span:not(:nth-child(6)) {
+    transform: translate(-50%, -50%) scale(4);
+    transition: 1.5s ease;
+  }
+    
+  .file-upload-button {
+    background-color: #ff5252;
+    border-radius: 50%;
+    height: 3rem;
+    overflow: hidden;
+    position: relative;
+    width: 3rem;
+
+  &::after {
+    content: '⇪';
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  input[type="file"] {
+        font-size: 100px;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+    }
+}
+
+.file-info {
+  color: black;
+  font-family: Lato;
+  margin-left: 0.5rem;
+}
+
+input{
+    border-radius: 10px;
+    height: 36px;
+    width: 100%;
+
+}
+
+.err{
+  color: red ;
+}

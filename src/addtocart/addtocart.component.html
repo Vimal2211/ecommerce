@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<h2>Add To Cart</h2>
+<!-- <div class="product-container" *ngFor="let item of cart; let i =index"> -->
+<div class="row padd">
+    <div class="col-8">
+        <div class="product-container totalPrice" *ngFor="let item of cart; let i =index">
+            <div class="product-card row">
+                <div class="col-6" style="text-align: center;">
+                    <img [src]=item.imageUrl alt="Product 1" style="width: 160px; border-radius: 10px;">
+                </div>
+                <div class="col-6">
+                    <h2>{{item.name}}</h2>
+                    <p> {{item.description}}</p>
+                    <p>Total Quantity: {{item.selectedQuantity}}</p>
+                    <p>Total Price: ₹ {{item.totalPrice}}</p>
+                    <!-- <button (click)="remove(item)">REMOVE</button> -->
+                    <button (click)="remove(item)" class="button"> Remove
+                    </button>
+
+                    <!-- <button>MOVE TO WISHLIST</button> -->
+                </div>
+
+            </div>
+        </div>
+        @if(cart.length == 0){
+        <div class="totalPrice product-card " style="font-size: x-large; margin-top: 8px; text-align: center;">
+            No Cart Item
+        </div>
+        }
+    </div>
+
+    <div class="col-4">
+        <div class="totalPrice" style="border: 1px solid black;">
+            <!-- <div class="row">
+                <div class="col">
+                    Cart Total (Excl. of all taxes)
+                </div>
+                <div class="col">
+                    ₹{{calculateTotalPrice()}}
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col">
+                    Shipping Charges
+                </div>
+                <div class="col">
+                    Free
+                </div>
+            </div>
+
+            <div style="color: black;" class="row">
+                <div class="col">
+                    Total Amount
+                </div>
+                <div class="col">
+                    ₹{{calculateTotalPrice()}}
+                </div>
+            </div>
+        </div>
+
+        <!-- <button>Place Order</button> -->
+        @if(cart.length == 0){
+        <div style="text-align: center; margin-top: 13px;">
+            <button (click)="backtoHome()" class="btn"><i class="animation"></i>Return to Purchase<i class="animation"></i>
+            </button>
+        </div>
+        }
+        @else {
+        <div style="text-align: center; margin-top: 13px;">
+            <button (click)="placeOrder()" class="btn"><i class="animation"></i>Place Order<i class="animation"></i>
+            </button>
+        </div>
+        }
+
+
+
+    </div>
+
+</div>
+
+
+<!-- </div> -->

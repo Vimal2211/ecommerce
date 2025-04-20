@@ -1,0 +1,130 @@
+<app-navbar></app-navbar>
+
+<h2>Add Products</h2>
+
+<div class="prod">
+    <form action="" [formGroup]="productForm">
+        <div class="row">
+            <div class="col">
+                <label for="">Product Name</label>
+                <br>
+                <input formControlName="name" type="text">
+                <span class="err" *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched">Product name is required</span>
+            </div>
+
+            <div class="col">
+                <label for="">Price</label>
+                <br>
+                <input formControlName="price" type="number">
+                <span class="err" *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched">Product name is required</span>
+
+            </div>
+
+            <div class="col">
+                <label for="">Quantity</label>
+                <br>
+                <input formControlName="quantity" type="number">
+                <span class="err" *ngIf="productForm.get('quantity')?.invalid && productForm.get('quantity')?.touched">Product name is required</span>
+
+            </div>
+
+            <div class="col">
+                <label for="">Description</label>
+                <br>
+                <input formControlName="description" type="text">
+            </div>
+
+            <!-- <div class="col">
+                <label for="">Image</label>
+                <br>
+                <input type="file" accept="image/*" (change)="onFileSelected($event)">
+                <span>{{this.productForm.value.fileName}}</span>
+            </div> -->
+
+            <div class="col">
+                <label for="">Upload Image</label> <br>
+                <button class="file-upload-button">
+                    <input type="file" #fileInput (change)="onFileSelected($event)" />
+                </button>
+
+                <span class="file-info">{{this.productForm.value.fileName}}</span>
+                <br>
+                <span class="err" *ngIf="productForm.get('imageUrl')?.invalid && productForm.get('imageUrl')?.touched">Product name is required</span>
+
+            </div>
+
+        </div>
+        <div style="padding-top: 30px; display: flex; justify-content: flex-end;">
+            <!-- <button (click)="submit()" type="submit">Submit</button> -->
+
+            <button class="btn" style="margin-right: 10px;" (click)="submit()">
+                <span class="circle1"></span>
+                <span class="circle2"></span>
+                <span class="circle3"></span>
+                <span class="circle4"></span>
+                <span class="circle5"></span>
+                <span class="text">Submit</span>
+            </button>
+
+            <button class="btn" (click)="back()">
+                <span class="circle1"></span>
+                <span class="circle2"></span>
+                <span class="circle3"></span>
+                <span class="circle4"></span>
+                <span class="circle5"></span>
+                <span class="text">Cancel</span>
+            </button>
+            <!-- <button (click)="back()" type="submit">Cancel</button> -->
+        </div>
+    </form>
+</div>
+
+
+<div style="margin-top: 20px; margin-left: 10px; margin-right: 10px; border-radius: 10px;">
+    <table class="table table-info">
+        <thead>
+            <tr>
+                <th scope="col">Product ID</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tabelArray; let i = index">
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.fileName}}</td>
+                <td> <span style="margin-right: 8px;">
+                        <button class="btn" (click)="edit(item)">
+                            <span class="circle1"></span>
+                            <span class="circle2"></span>
+                            <span class="circle3"></span>
+                            <span class="circle4"></span>
+                            <span class="circle5"></span>
+                            <span class="text">Edit</span>
+                        </button>
+                        <!-- <button >Edit</button> -->
+
+                    </span>
+
+                    <button class="btn" (click)="delete(item)">
+                        <span class="circle1"></span>
+                        <span class="circle2"></span>
+                        <span class="circle3"></span>
+                        <span class="circle4"></span>
+                        <span class="circle5"></span>
+                        <span class="text">Delete</span>
+                    </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
