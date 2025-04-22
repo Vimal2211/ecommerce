@@ -42,7 +42,7 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private toast: ToastrService, private http: HttpClient) {
     this.signupForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
@@ -58,12 +58,12 @@ export class LoginComponent {
     });
 
     this.otpForm = this.fb.group({
-      otp1: ['', [Validators.required, Validators.pattern('[0-9]')]],
-      otp2: ['', [Validators.required, Validators.pattern('[0-9]')]],
-      otp3: ['', [Validators.required, Validators.pattern('[0-9]')]],
-      otp4: ['', [Validators.required, Validators.pattern('[0-9]')]],
-      otp5: ['', [Validators.required, Validators.pattern('[0-9]')]],
-      otp6: ['', [Validators.required, Validators.pattern('[0-9]')]],
+      otp1: ['', [Validators.required,]], //Validators.pattern('[0-9]')
+      otp2: ['', [Validators.required,]],
+      otp3: ['', [Validators.required,]],
+      otp4: ['', [Validators.required,]],
+      otp5: ['', [Validators.required,]],
+      otp6: ['', [Validators.required,]],
       // otp: ['', [Validators.required, Validators.pattern(/^[0-9]{4}$/)]]
     });
     this.startResendTimer();
@@ -138,22 +138,59 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      // this.http.post('/api/register', this.signupForm.value).subscribe({
-      //   next: (res: any) => {
-      this.toast.success('OTP sent to your email!');
-      // this.userRegisteredData = res; // Save for verification
-      // this.isOtpVerification = true;
-      this.showOtpScreen = true;
-      this.startResendTimer();
-      // },
-      // error: (err) => {
-      //   this.toast.error('Registration failed!');
-      // }
-      // });
+      const formData = {
+        name: this.signupForm.value.name,
+        phoneNumber: this.signupForm.value.phoneNumber,
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password
+      };  
+      // Call register API
+      this.http.post<any>('http://localhost:5000/api/auth/register', formData).subscribe({
+        next: (res) => {
+          const { email, phoneNumber } = formData;  
+          // Call send OTP API
+          this.http.post<any>('http://localhost:5000/api/auth/send-otp', { email, phoneNumber }).subscribe({
+            next: () => {
+              this.toast.success('OTP sent to your email!');
+              this.showOtpScreen = true;
+              this.startResendTimer();
+            },
+            error: (err) => {
+              this.toast.error('Failed to send OTP');
+              console.error('Send OTP Error:', err);
+            }
+          });
+        },
+        error: (err) => {
+          this.toast.error('Registration failed');
+          console.error('Register Error:', err);
+        }
+      });
     } else {
       this.signupForm.markAllAsTouched();
     }
   }
+  
+  
+
+  // onSubmit() {
+  //   if (this.signupForm.valid) {
+  //     // this.http.post('/api/register', this.signupForm.value).subscribe({
+  //     //   next: (res: any) => {
+  //     this.toast.success('OTP sent to your email!');
+  //     // this.userRegisteredData = res; // Save for verification
+  //     // this.isOtpVerification = true;
+  //     this.showOtpScreen = true;
+  //     this.startResendTimer();
+  //     // },
+  //     // error: (err) => {
+  //     //   this.toast.error('Registration failed!');
+  //     // }
+  //     // });
+  //   } else {
+  //     this.signupForm.markAllAsTouched();
+  //   }
+  // }
 
   autoFocusNext(event: any, index: number) {
     const value = event.target.value;
@@ -164,25 +201,38 @@ export class LoginComponent {
   }
 
   onSubmitOtp() {
+    debugger
     if (this.otpForm.valid) {
-      const otp = Object.values(this.otpForm.value).join('');
-      console.log('Entered OTP:', otp);
-      const enteredOtp = this.otpForm.value.otp;
-      if (enteredOtp === this.receivedOtp) {
-        this.toast.success('Registration Successful!');
-        this.showOtpScreen = false;
-        this.toggleForm(true);
-        this.loginForm.get('email')?.setValue(this.signupForm.value.email);
-        this.loginForm.get('password')?.setValue(this.signupForm.value.password);
-        this.signupForm.reset();
-        this.otpForm.reset();
-      } else {
-        this.toast.error('Incorrect OTP. Please try again.');
-      }
+      const otp = Object.values(this.otpForm.value).join('');  
+      const payload = {
+        name: this.signupForm.value.name,
+        phoneNumber: this.signupForm.value.phoneNumber,
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        otp: otp
+      };
+  
+      this.http.post<any>('http://localhost:5000/api/auth/verify-otp', payload).subscribe({
+        next: (res) => {
+          this.toast.success('Registration Successful!');
+          this.showOtpScreen = false;
+          this.toggleForm(true); // shows login form
+          this.loginForm.get('email')?.setValue(this.signupForm.value.email);
+          this.loginForm.get('password')?.setValue(this.signupForm.value.password);
+          this.signupForm.reset();
+          this.otpForm.reset();
+        },
+        error: (err) => {
+          this.toast.error('OTP verification failed');
+          console.error('Verify OTP Error:', err);
+        }
+      });
+  
     } else {
       this.otpForm.markAllAsTouched();
     }
   }
+  
 
   resendOtp() {
     this.receivedOtp = '123456'; // Or generate a new one
@@ -265,34 +315,27 @@ export class LoginComponent {
 
   onSubmitLogin() {
     if (this.loginForm.valid) {
-      // Retrieve users from local storage
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-      // Find a user that matches the entered email and password
-      const user = users.find(
-        (user: { email: string; password: string }) =>
-          user.email === this.loginForm.value.email &&
-          user.password === this.loginForm.value.password
-      );
-      console.log('user: ', user);
-
-
-      if (user) {
-        localStorage.setItem('username', user.email);
-        localStorage.setItem('pass', user.password);
-        this.toast.success('Login Successfully!');
-        this.loginForm.reset();
-        this.islogPasswordVisible = false;
-        this.router.navigateByUrl('product-list');
-      } else {
-        this.toast.error('Invalid email or password!');
-      }
+      const payload = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+  
+      this.http.post<any>('http://localhost:5000/api/auth/login', payload).subscribe({
+        next: (res) => {
+          this.toast.success('Login Successfully!');
+          this.loginForm.reset();
+          this.islogPasswordVisible = false;
+          this.router.navigateByUrl('product-list');
+        },
+        error: (err) => {
+          this.toast.error('Invalid email or password!');
+          console.error('Login Error:', err);
+        }
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-
-
 
   // Handle forgot password form submission
   onSubmitForgotPassword() {

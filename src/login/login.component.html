@@ -53,10 +53,10 @@
                 (ngSubmit)="onSubmit()" class="fade-in">
                 <h2>Sign Up</h2>
 
-                <input type="text" formControlName="fullName" placeholder="Full Name" required>
-                <div *ngIf="s['fullName'].touched && s['fullName'].invalid" class="error">
-                    <small *ngIf="s['fullName'].errors?.['required']">Name is required.</small>
-                    <small *ngIf="s['fullName'].errors?.['minlength']">Name must be at least 3 characters long.</small>
+                <input type="text" formControlName="name" placeholder="Full Name" required>
+                <div *ngIf="s['name'].touched && s['name'].invalid" class="error">
+                    <small *ngIf="s['name'].errors?.['required']">Name is required.</small>
+                    <small *ngIf="s['name'].errors?.['minlength']">Name must be at least 3 characters long.</small>
                 </div>
 
                 <input type="email" formControlName="email" placeholder="Email" [autocomplete]="'off'" required>
@@ -124,7 +124,7 @@
                     <input type="text" maxlength="1" formControlName="otp6" (input)="autoFocusNext($event, 6)"
                         (paste)="preventCopyPaste($event)" #otp6>
                 </div>
-                <button type="submit" [disabled]="otpForm.invalid">Verify OTP</button>
+                <button type="submit">Verify OTP</button>
 
                 <div class="resend-wrap">
                     <p class="mb-0" *ngIf="!resendAvailable">Resend OTP in <span>{{ resendCountdown }}s</span></p>
